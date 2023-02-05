@@ -19,4 +19,4 @@ go_name_map['GO:0008150']   # biological process
 
 leaves <- get_leaves(go_structure$child, go_structure$parent)
 leaves
-parent_relationship_map[['GO:0008165']]    # should be null, it's a leaf
+parent_relationship_map[['GO:0008165']]   # should be null, it's a leaf
