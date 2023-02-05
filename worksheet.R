@@ -20,3 +20,9 @@ go_name_map['GO:0008150']   # biological process
 leaves <- get_leaves(go_structure$child, go_structure$parent)
 leaves
 parent_relationship_map[['GO:0008165']]   # should be null, it's a leaf
+
+
+###########
+
+raw_go_data <- read.delim("/Users/michaelriffle/Downloads/go_report_961.txt", comment.char="#", header=TRUE, stringsAsFactors=FALSE)
+go_data = data.frame(acc=raw_go_data$GO.acc, count=raw_go_data$count)
