@@ -36,7 +36,6 @@ go_data['foo']
 results = get_independent_nodes(go_structure, go_data, 0.5)
 length(results$leaves)
 
-#install.packages('igraph')
 #install.packages('visNetwork')
 library(igraph)
 library(visNetwork)
