@@ -27,7 +27,7 @@ get_independent_nodes <- function(edges, node_values, threshold) {
     leaves_to_remove <- get_leaves_to_remove(leaves, node_values, threshold)
   }
   
-  return(list(leaves=leaves, remaining_edges=data.frame(child=children, parent=parents)))
+  return(list(leaves=leaves, remaining_edges=data.frame(child=children, parent=parents, stringsAsFactors=FALSE)))
 }
 
 remove_leaves <- function(leaves_to_remove, children, parents) {

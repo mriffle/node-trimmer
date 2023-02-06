@@ -24,5 +24,42 @@ parent_relationship_map[['GO:0008165']]   # should be null, it's a leaf
 
 ###########
 
-raw_go_data <- read.delim("/Users/michaelriffle/Downloads/go_report_961.txt", comment.char="#", header=TRUE, stringsAsFactors=FALSE)
-go_data = data.frame(acc=raw_go_data$GO.acc, count=raw_go_data$count)
+# read in GO report from metagomics
+raw_go_data <- read.delim("/mnt/c/Users/mriffle/Downloads/go_report_970.txt", comment.char="#", header=TRUE, stringsAsFactors=FALSE)
+
+# grab just the columns we want as a named vector
+go_data = as.list(raw_go_data$ratio)
+names(go_data) = raw_go_data$GO.acc
+go_data[['GO:0005575']]
+go_data['foo']
+
+results = get_independent_nodes(go_structure, go_data, 0.5)
+length(results$leaves)
+
+#install.packages('igraph')
+#install.packages('visNetwork')
+library(igraph)
+library(visNetwork)
+
+children = unlist(results$remaining_edges['child'], use.names=FALSE)
+parents = unlist(results$remaining_edges['parent'], use.name=FALSE)
+children
+parents
+
+# use visNetwork to visualize
+unique_nodes = unique(c(children, parents))
+nodes = data.frame(id = unique_nodes, label = unique_nodes)
+edges = data.frame(from = children, to = parents)
+visNetwork(nodes, edges, width = "100%", height="500px") %>% 
+  visEdges(arrows = "to") %>% 
+  visHierarchicalLayout()
+
+
+# use Rgraphviz to visualize
+if (!require("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+
+BiocManager::install("Rgraphviz")
+library(Rgraphviz)
+graphvizCapabilities()
+
