@@ -9,6 +9,26 @@ source('https://raw.githubusercontent.com/mriffle/node-trimmer/main/node-trimmer
 go_structure <- read.delim("https://raw.githubusercontent.com/mriffle/node-trimmer/main/go_structure.txt", header=FALSE, stringsAsFactors=FALSE)
 names(go_structure) <- c('parent', 'parent_name', 'child', 'child_name')
 
+#########
+# THE NEXT TWO BLOCKS ARE DIFFERENT WAYS TO GET GO DATA, ONLY USE ONE OF THEM #
+#########
+
+############# WORK WITH GO RATIOS ALL TIME POINTS #######################
+
+# read in all GO ratios, change the file path to the location on your computer
+all_go_ratios <- read.csv("/mnt/c/Users/mriffle/Desktop/HAB_2021_GOratios_all.csv", header=TRUE, stringsAsFactors=FALSE)
+
+# create a single named list where the names are the GO accession strings
+# and the values are the means of the ratios for all time points. This
+# single value can be used for thresholding
+go_data = as.list(rowMeans(all_go_ratios[,4:39], na.rm = TRUE))
+names(go_data) = all_go_ratios[,1]
+
+#########################################################################
+
+
+############# WORK WITH A SINGLE METAGOMICS RUN #########################
+
 # read in GO a report from a specific metagomics run
 # change the path to where the file is on your computer
 raw_go_data <- read.delim("/mnt/c/Users/mriffle/Downloads/go_report_970.txt", comment.char="#", header=TRUE, stringsAsFactors=FALSE)
@@ -18,13 +38,22 @@ raw_go_data <- read.delim("/mnt/c/Users/mriffle/Downloads/go_report_970.txt", co
 go_data = as.list(raw_go_data$ratio)
 names(go_data) = raw_go_data$GO.acc
 
+#########################################################################
+
+############# GET THE SET OF INDEPENDENT GO TERMS #######################
+
 # get the set of GO leaves after trimming the DAG using the given threshold
-results = get_independent_nodes(go_structure, go_data, threshold = 0.1)
+# make the threshold smaller to get more GO Nodes
+results = get_independent_nodes(go_structure, go_data, threshold = 0.4)
 
 results$leaves      # print the set of GO terms to use for clustering, etc
 
 # report the number of leaves returned
 length(results$leaves)
+
+########################################################################
+
+############## VERY BASIC VISUALIZATION, WORK IN PROGRESS ##############
 
 # very basic visualization for the moment of the resulting DAG
 install.packages('visNetwork')
@@ -40,3 +69,5 @@ edges = data.frame(from = children, to = parents)
 visNetwork(nodes, edges, width = "100%", height="500px") %>% 
   visEdges(arrows = "to") %>% 
   visHierarchicalLayout()
+
+########################################################################
