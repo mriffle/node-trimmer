@@ -11,7 +11,7 @@ names(go_structure) <- c('parent', 'parent_name', 'child', 'child_name')
 
 # read in GO a report from a specific metagomics run
 # change the path to where the file is on your computer
-raw_go_data <- read.delim("/Users/michaelriffle/Downloads/go_report_961.txt", comment.char="#", header=TRUE, stringsAsFactors=FALSE)
+raw_go_data <- read.delim("/mnt/c/Users/mriffle/Downloads/go_report_970.txt", comment.char="#", header=TRUE, stringsAsFactors=FALSE)
 
 # grab just the columns we want as a named list
 # here we are using the ratio as the value on the GO nodes. this could be counts
@@ -25,9 +25,6 @@ results$leaves      # print the set of GO terms to use for clustering, etc
 
 # report the number of leaves returned
 length(results$leaves)
-
-# list the leaves returned
-results
 
 # very basic visualization for the moment of the resulting DAG
 install.packages('visNetwork')
