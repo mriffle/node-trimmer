@@ -19,6 +19,7 @@ go_data = as.list(raw_go_data$ratio)
 names(go_data) = raw_go_data$GO.acc
 
 # get the set of GO leaves after trimming the DAG using the given threshold
+# this is the final set of GO terms to use for clustering, etc
 results = get_independent_nodes(go_structure, go_data, threshold = 0.1)
 
 # report the number of leaves returned
