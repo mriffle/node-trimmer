@@ -24,7 +24,7 @@ results = get_independent_nodes(go_structure, go_data, threshold = 0.1)
 # report the number of leaves returned
 length(results$leaves)
 
-# list the number of leaves returned
+# list the leaves returned
 results
 
 # very basic visualization for the moment of the resulting DAG
