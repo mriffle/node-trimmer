@@ -53,6 +53,15 @@ length(results$leaves)
 
 ########################################################################
 
+########################################################################
+# Filter the all_go_ratios data to only include rows from the filtered
+# set of independent GO terms
+########################################################################
+
+filtered_go_ratios = all_go_ratios[which(all_go_ratios$GO.acc %in% results$leaves),]
+
+View(filtered_go_ratios)   # view the data
+
 ############## VERY BASIC VISUALIZATION, WORK IN PROGRESS ##############
 
 # very basic visualization for the moment of the resulting DAG
