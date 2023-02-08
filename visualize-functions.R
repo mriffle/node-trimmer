@@ -27,17 +27,11 @@ get_levels = function(go_accs, children, parents) {
 }
 
 fill_levels = function(levels, level, go_accs, go_accs_to_fill, parent_child_map) {
-  print(paste('0', go_accs_to_fill))
-  print(which(go_accs %in% go_accs_to_fill))
-  
   levels[which(go_accs %in% go_accs_to_fill)] = level
-  print(levels)
-  
+
   level = level + 1
   for(go_acc in go_accs_to_fill) {
     new_nodes = parent_child_map[[go_acc]]
-    print(paste('1', go_acc))
-    print(paste(new_nodes))
     if(!is.null(new_nodes) && length(new_nodes) > 0) {
       fill_levels(levels, level, go_acc, new_nodes, parent_child_map)
     }
