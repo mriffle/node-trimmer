@@ -31,7 +31,7 @@ names(go_data) = all_go_ratios[,1]
 
 # read in GO a report from a specific metagomics run
 # change the path to where the file is on your computer
-raw_go_data <- read.delim("/Users/michaelriffle/Downloads/go_report_961.txt", comment.char="#", header=TRUE, stringsAsFactors=FALSE)
+raw_go_data <- read.delim("/mnt/c/Users/mriffle/Downloads/go_report_970.txt", comment.char="#", header=TRUE, stringsAsFactors=FALSE)
 
 # grab just the columns we want as a named list
 # here we are using the ratio as the value on the GO nodes. this could be counts
@@ -65,19 +65,14 @@ View(filtered_go_ratios)   # view the data
 ############## VERY BASIC VISUALIZATION, WORK IN PROGRESS ##############
 
 # very basic visualization for the moment of the resulting DAG
+
+source('https://raw.githubusercontent.com/mriffle/node-trimmer/main/visualize-functions.R')
+
 install.packages('visNetwork')
 library(visNetwork)
 
 children = unlist(results$remaining_edges['child'], use.names=FALSE)
 parents = unlist(results$remaining_edges['parent'], use.name=FALSE)
-
-# use visNetwork to visualize
-unique_nodes = unique(c(children, parents))
-nodes = data.frame(id = unique_nodes, label = unique_nodes)
-edges = data.frame(from = children, to = parents)
-visNetwork(nodes, edges, width = "100%", height="500px") %>% 
-  visEdges(arrows = "to") %>% 
-  visHierarchicalLayout()
 
 visualize_go_dag(unique_nodes, list(), children, parents)
 
