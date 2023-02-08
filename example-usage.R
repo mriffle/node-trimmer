@@ -71,6 +71,7 @@ source('https://raw.githubusercontent.com/mriffle/node-trimmer/main/visualize-fu
 install.packages('visNetwork')
 library(visNetwork)
 
+unique_nodes = unique(c(children, parents))
 children = unlist(results$remaining_edges['child'], use.names=FALSE)
 parents = unlist(results$remaining_edges['parent'], use.name=FALSE)
 
