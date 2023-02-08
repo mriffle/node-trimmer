@@ -44,7 +44,7 @@ names(go_data) = raw_go_data$GO.acc
 
 # get the set of GO leaves after trimming the DAG using the given threshold
 # make the threshold smaller to get more GO Nodes
-results = get_independent_nodes(go_structure, go_data, threshold = 0.2)
+results = get_independent_nodes(go_structure, go_data, threshold = 0.4)
 
 results$leaves      # print the set of GO terms to use for clustering, etc
 

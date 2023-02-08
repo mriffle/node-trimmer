@@ -13,12 +13,13 @@ visualize_go_dag = function(
   
   visNetwork(nodes, edges, width = "100%", height="500px") %>% 
     visEdges(arrows = "to") %>% 
-    visHierarchicalLayout()
+    visHierarchicalLayout() %>%
+    visPhysics(solver = "hierarchicalRepulsion", 
+               forceAtlas2Based = list(gravitationalConstant = -500))
 }
 
 get_levels = function(go_accs, children, parents) {
   parent_child_map <- create_parent_relationship_map(parents, children)
-  print(parent_child_map[['all']])
   level = 1
   levels = rep(c(0),times=length(go_accs))
   nodes_to_fill = get_roots(children, parents)
