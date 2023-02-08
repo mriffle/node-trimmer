@@ -10,6 +10,9 @@
 #
 # node_values must be a a named list with the same node names as
 # edges and some numeric value to test for threshold
+
+source('https://raw.githubusercontent.com/mriffle/node-trimmer/main/misc-go-functions.R')
+
 get_independent_nodes <- function(edges, node_values, threshold) {
   children = as.vector(edges$child)
   parents = as.vector(edges$parent)
@@ -56,6 +59,3 @@ get_leaves_to_remove <- function(leaves, node_values, threshold) {
   return(leaves_to_remove)
 }
 
-get_leaves <- function(child_nodes, parent_nodes) {
-  return(setdiff(child_nodes, parent_nodes))
-}

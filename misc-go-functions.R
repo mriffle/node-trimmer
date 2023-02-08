@@ -1,3 +1,10 @@
+get_leaves <- function(child_nodes, parent_nodes) {
+  return(setdiff(child_nodes, parent_nodes))
+}
+
+get_roots <- function(child_nodes, parent_nodes) {
+  return(setdiff(parent_nodes, child_nodes))
+}
 
 create_go_name_map <- function(dag_structure) {
   l <- c()
@@ -10,15 +17,15 @@ create_go_name_map <- function(dag_structure) {
   return(l)
 }
 
-create_parent_relationship_map <- function(dag_structure) {
+create_parent_relationship_map <- function(parents, children) {
   l <- list()
   
-  for (row in 1:nrow(dag_structure)) {
-    parent = dag_structure[row, "parent"]
+  for (row in 1:length(parents)) {
+    parent = parents[row]
     if(is.null(l[[parent]])) {
       l[[parent]] = c()
     }
-    l[[parent]] = append(l[[parent]], dag_structure[row, "child"])
+    l[[parent]] = append(l[[parent]], children[row])
   }
   
   return(l)

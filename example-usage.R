@@ -31,7 +31,7 @@ names(go_data) = all_go_ratios[,1]
 
 # read in GO a report from a specific metagomics run
 # change the path to where the file is on your computer
-raw_go_data <- read.delim("/mnt/c/Users/mriffle/Downloads/go_report_970.txt", comment.char="#", header=TRUE, stringsAsFactors=FALSE)
+raw_go_data <- read.delim("/Users/michaelriffle/Downloads/go_report_961.txt", comment.char="#", header=TRUE, stringsAsFactors=FALSE)
 
 # grab just the columns we want as a named list
 # here we are using the ratio as the value on the GO nodes. this could be counts
@@ -78,5 +78,7 @@ edges = data.frame(from = children, to = parents)
 visNetwork(nodes, edges, width = "100%", height="500px") %>% 
   visEdges(arrows = "to") %>% 
   visHierarchicalLayout()
+
+visualize_go_dag(unique_nodes, list(), children, parents)
 
 ########################################################################
