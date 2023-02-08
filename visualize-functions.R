@@ -7,7 +7,6 @@ visualize_go_dag = function(
     parents
 ) {
   levels = get_levels(go_accs, children, parents)
-  print(levels)
   nodes = data.frame(id = go_accs, label = go_accs, level = levels)
   edges = data.frame(from = children, to = parents)
   
