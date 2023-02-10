@@ -7,7 +7,7 @@ visualize_go_dag = function(
     parents
 ) {
   levels = get_levels(go_accs, children, parents)
-  nodes = data.frame(id = go_accs, label = go_accs, level = levels)
+  nodes = data.frame(id = go_accs, label = go_names, level = levels)
   edges = data.frame(from = children, to = parents)
   
   visNetwork(nodes, edges, width = "100%", height="500px") %>% 
@@ -34,4 +34,12 @@ get_levels = function(go_accs, children, parents) {
   }
 
   return(levels)
+}
+
+get_go_names = function(unique_nodes, go_structure) {
+  node_names = rep('', times=length(unique_nodes))
+  for(i in 1:length(node_names)) {
+    node_names[i] = unique(go_structure$child_name[which(go_structure$child == unique_nodes[i])])
+  }
+  return(node_names)
 }
