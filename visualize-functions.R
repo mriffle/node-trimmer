@@ -40,6 +40,8 @@ get_go_names = function(unique_nodes, go_structure) {
   node_names = rep('', times=length(unique_nodes))
   for(i in 1:length(node_names)) {
     node_names[i] = unique(go_structure$child_name[which(go_structure$child == unique_nodes[i])])
+    node_names[i] = gsub(" ", "\n", node_names[i])
+    node_names[i] = gsub("-", "-\n", node_names[i])
   }
   return(node_names)
 }
