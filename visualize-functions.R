@@ -7,7 +7,9 @@ visualize_go_dag = function(
     parents
 ) {
   levels = get_levels(go_accs, children, parents)
-  nodes = data.frame(id = go_accs, label = go_names, level = levels)
+  colors = get_colors(go_accs, children, parents)
+  
+  nodes = data.frame(id = go_accs, label = go_names, level = levels, color = colors)
   edges = data.frame(from = children, to = parents)
   
   visNetwork(nodes, edges, width = "100%", height="500px") %>% 
@@ -15,6 +17,13 @@ visualize_go_dag = function(
     visHierarchicalLayout() %>%
     visPhysics(solver = "hierarchicalRepulsion", 
                forceAtlas2Based = list(gravitationalConstant = -500))
+}
+
+get_colors = function(go_accs, children, parents) {
+  colors = rep(c("grey"),times=length(go_accs))
+  leaves = get_leaves(children, parents)
+  colors[which(go_accs %in% leaves)] = "orange"
+  return(colors)
 }
 
 get_levels = function(go_accs, children, parents) {

@@ -31,7 +31,7 @@ names(go_data) = all_go_ratios[,1]
 
 # read in GO a report from a specific metagomics run
 # change the path to where the file is on your computer
-raw_go_data <- read.delim("/Users/michaelriffle/Downloads/go_report_961.txt", comment.char="#", header=TRUE, stringsAsFactors=FALSE)
+raw_go_data <- read.delim("/mnt/c/Users/mriffle/Downloads/go_report_970.txt", comment.char="#", header=TRUE, stringsAsFactors=FALSE)
 
 # grab just the columns we want as a named list
 # here we are using the ratio as the value on the GO nodes. this could be counts
@@ -44,7 +44,7 @@ names(go_data) = raw_go_data$GO.acc
 
 # get the set of GO leaves after trimming the DAG using the given threshold
 # make the threshold smaller to get more GO Nodes
-results = get_independent_nodes(go_structure, go_data, threshold = 0.4)
+results = get_independent_nodes(go_structure, go_data, threshold = 0.04)
 
 results$leaves      # print the set of GO terms to use for clustering, etc
 
