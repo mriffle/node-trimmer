@@ -86,3 +86,23 @@ node_names = get_go_names(unique_nodes, go_structure)
 visualize_go_dag(unique_nodes, node_names, children, parents)
 
 ########################################################################
+
+########################################################################
+# How to get fraction of total quant for each taxon represented by
+# each GO term. Ie, what fraction of the total quant for alphaproteobacteria
+# is represented by 'protein binding'
+########################################################################
+source('https://raw.githubusercontent.com/mriffle/node-trimmer/main/metagomics-functions.R')
+
+# read in data
+taxonomy_report <- read.delim("/mnt/c/Users/mriffle/Downloads/taxonomy_report_978.txt", comment.char="#", header=TRUE, stringsAsFactors=FALSE)
+
+# filter down to the class level for faster operations
+class_taxonomy_report <- filter_taxonomy_report_on_taxon_level(taxonomy_report, 'class')
+
+# add new column ratio.of.taxon to the taxonomy report
+class_taxonomy_report <- generate_ratio_of_taxon_report(class_taxonomy_report)
+
+# view the data
+View(class_taxonomy_report)
+
