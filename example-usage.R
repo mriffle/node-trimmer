@@ -32,6 +32,7 @@ names(go_data) = all_go_ratios[,1]
 # read in GO a report from a specific metagomics run
 # change the path to where the file is on your computer
 raw_go_data <- read.delim("/mnt/c/Users/mriffle/Downloads/go_report_970.txt", comment.char="#", header=TRUE, stringsAsFactors=FALSE)
+View(raw_go_data)
 
 # grab just the columns we want as a named list
 # here we are using the ratio as the value on the GO nodes. this could be counts
