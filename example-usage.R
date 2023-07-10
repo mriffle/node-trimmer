@@ -22,6 +22,10 @@ all_go_ratios <- read.csv("/mnt/c/Users/mriffle/Desktop/HAB_2021_GOratios_all.cs
 # and the values are the means of the ratios for all time points. This
 # single value can be used for thresholding
 go_data = as.list(rowMeans(all_go_ratios[,4:39], na.rm = TRUE))
+
+# to use the max value instead of the means for the rows:
+go_data = as.list(apply(all_go_ratios[,4:39], 1, function(x) max(x, na.rm = TRUE)))
+View(go_data)
 names(go_data) = all_go_ratios[,1]
 
 #########################################################################
